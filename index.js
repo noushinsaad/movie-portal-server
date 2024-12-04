@@ -58,7 +58,7 @@ async function run() {
                     releasingYear: updatedMovie.releasingYear,
                     rating: updatedMovie.rating,
                     summary: updatedMovie.summary,
-                    userEmail: updatedMovie.userEmail
+                    updaterName: updatedMovie.updaterName
                 }
             }
 
