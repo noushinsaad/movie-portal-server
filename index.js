@@ -56,7 +56,7 @@ async function run() {
                     genre: updatedMovie.genre,
                     duration: updatedMovie.duration,
                     releasingYear: updatedMovie.releasingYear,
-                    rating: updatedMovie.rating,
+                    rating: updatedMovie.ratings,
                     summary: updatedMovie.summary,
                     updaterName: updatedMovie.updaterName
                 }
@@ -72,6 +72,23 @@ async function run() {
             const result = await movieCollection.insertOne(newMovie);
             res.send(result);
         })
+
+
+        app.patch('/movies/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const { likedBy } = req.body;
+
+            const updatedMovie = {
+                $set: {
+                    likedBy
+                }
+            }
+
+            const result = await movieCollection.updateOne(query, updatedMovie);
+            res.send(result)
+        })
+
 
         app.delete('/movies/:id', async (req, res) => {
             const id = req.params.id;
