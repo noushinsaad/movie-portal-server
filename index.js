@@ -89,6 +89,21 @@ async function run() {
             res.send(result)
         })
 
+        app.patch('/movies/:id/unlike', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const { email } = req.body;
+
+            const updatedMovie = {
+                $pull: {
+                    likedBy: email
+                }
+            }
+
+            const result = await movieCollection.updateOne(query, updatedMovie);
+            res.send(result)
+        })
+
 
         app.delete('/movies/:id', async (req, res) => {
             const id = req.params.id;
